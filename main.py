@@ -1,15 +1,9 @@
 from db.connection import testar_conexao
-
-def menu_principal():
-    print("=== Sistema de Gestão de Pontos Turísticos de Alagoas ===\n")
-    print("1 - Cadastrar novo usuário")
-    print("2 - Login")
-    print("3 - Sair")
-    opcao = int(input("Escolha uma opção: "))
-    return opcao
+from menus.menu import menu_principal
 
 def main():
     testar_conexao()
+    menu_principal()
 
 if __name__ == "__main__":
     main()
