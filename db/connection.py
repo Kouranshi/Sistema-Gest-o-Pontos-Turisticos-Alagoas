@@ -1,6 +1,7 @@
 import psycopg2
 from psycopg2 import sql
 from dotenv import load_dotenv
+from menus.menu import menu_principal
 import os
 
 load_dotenv()
@@ -58,14 +59,15 @@ def get_connection():
 
 
 def testar_conexao():
-    criar_banco_se_nao_existir()
-    conn = get_connection()
-    if conn:
-        print(f"Conexão com o banco '{DB_NAME}' bem-sucedida!")
-        conn.close()
-    else:
-        print("Falha na conexão com o banco de dados.")
-
-
-if __name__ == "__main__":
-    testar_conexao()
+    try:
+        criar_banco_se_nao_existir()
+        conn = get_connection()
+        if conn:
+            print(f"Conexão com o banco '{DB_NAME}' bem-sucedida!")
+            conn.close()
+            return True
+        else:
+            print("Falha na conexão com o banco de dados.")
+            return False
+    except Exception as e:
+        print("Erro ao testar conexão: ", e)

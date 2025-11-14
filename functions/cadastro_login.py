@@ -49,22 +49,30 @@ def login(email, senha):
     conn = db.connection.get_connection()
     cur = conn.cursor()
 
-    cur.execute("SELECT id_usuario, senha_hash FROM usuario WHERE email = %s;", (email,))
+    cur.execute("SELECT id_usuario, nome, senha_hash FROM usuario WHERE email = %s;", (email,))
     resultado = cur.fetchone()
 
     cur.close()
     conn.close()
 
     if not resultado:
-        print("Usuario não encontrado.")
-        return False
+        print("\nUsuario não encontrado.")
+        return False, None
     
     id_usuario = resultado[0]
-    senha_hash = resultado[1]
+    nome_usuario = resultado[1]
+    senha_hash = resultado[2]
 
     if bcrypt.checkpw(senha.encode('utf-8'), senha_hash.encode('utf-8')):
-        print("Login bem-sucedido!")
-        return True, id_usuario # ou também o indice q o id tá
+        print("\nLogin bem-sucedido!")
+        
+        usuario = {
+            "id": id_usuario,
+            "nome": nome_usuario,
+            "email": email
+        }
+        
+        return True, usuario # ou também o indice q o id tá
     else:
         print("Senha incorreta!")
         return False, None

@@ -2,7 +2,7 @@ create table usuario (
 id_usuario SERIAL primary key,
 nome varchar(255) not null,
 email varchar(100) not null unique,
-senha_hash varchar(45) not null,
+senha_hash varchar(60) not null,
 data_cadastro timestamp default current_timestamp
 );
 
@@ -12,7 +12,7 @@ nome varchar(45) not null,
 descricao text,
 horario_funcionamento varchar(45),
 custo_entrada decimal(10,2),
-logradouro varchar(150) not null,
+logradouro varchar(150),
 estado varchar(45) not null,
 cidade varchar(45) not null,
 cep varchar(10) not null,
